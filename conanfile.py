@@ -23,10 +23,10 @@ class MyLibrary(ConanFile):
     generators = "cmake_find_package"
 
     scm = {"type": "git",
-           "url": "auto",
+           "url": "https://github.com/jgsogo/issue-4795.git",  # I need this because I have my remote with git@github.com:jgsogo/issue-4795.git
            "revision": "auto"}
 
-    exports = "ProjectSettings.json"
+    exports = "ProjectSettings.json"  # This file has to be exported (it is needed by the recipe)
 
     def requirements(self):
         self.requires("zlib/1.2.8@conan/stable")
