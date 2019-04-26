@@ -5,7 +5,8 @@ from conans import ConanFile, CMake
 
 def get_version():
     project_settings = os.path.join(os.path.dirname(__file__), "ProjectSettings.json")
-    data = json.loads(project_settings)
+    with open(project_settings) as json_file:  
+        data = json.load(json_file)
     version = '{}.{}.{}'.format(data['version_major'], data['version_minor'], data['version_subminor'])
     return version
 
@@ -25,6 +26,9 @@ class MyLibrary(ConanFile):
            "url": "auto",
            "revision": "auto"}
 
+    def requirements(self):
+        self.requires("zlib/1.2.8@conan/stable")
+
     def sources(self):
         # Nothing to do here, your sources will be cloned using the `scm` data
         pass
@@ -37,6 +41,6 @@ class MyLibrary(ConanFile):
     def build(self):
         cmake = CMake(self)
         cmake.definitions["BUILD_TESTS"] = self.options.build_tests
-        cmake.configure(source_folder=self.projectfolder)
+        cmake.configure(source_folder="src")
         cmake.build()
     
