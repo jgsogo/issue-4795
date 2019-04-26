@@ -26,6 +26,8 @@ class MyLibrary(ConanFile):
            "url": "auto",
            "revision": "auto"}
 
+    exports = "ProjectSettings.json"
+
     def requirements(self):
         self.requires("zlib/1.2.8@conan/stable")
 
